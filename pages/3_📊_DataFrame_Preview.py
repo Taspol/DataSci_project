@@ -13,7 +13,7 @@ In this web application, we provide an interactive and user-friendly way to expl
 )
 
 # Display the dataframe in Streamlit
-data = pd.read_csv('data/updated_with_year.csv')
+data = pd.read_csv('dataset/updated_with_year.csv')
 selected_year = st.selectbox('Select Year', options=data['year'].unique())
 st.dataframe(data[data['year'] == selected_year].reset_index(drop=True))
 
