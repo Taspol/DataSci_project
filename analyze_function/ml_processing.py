@@ -13,7 +13,7 @@ def analyze_category(data):
                  hover_data={ "dc:title":True},
                  title="Cluster Visualization with Auto-Labeling",
                  labels={'auto_label': 'Research Field'},
-                 height=800
+                 height=900
                  )
 
     return fig
