@@ -11,6 +11,7 @@ from analyze_function.data_insights import analyze_funding_agencies
 from analyze_function.data_insights import article_per_year
 from analyze_function.data_insights import analyze_top_cited_journals
 from analyze_function.data_insights import analyze_open_access_trends
+from analyze_function.data_insights import analyze_connection_node
 
 
 # Load the uploaded CSV file to inspect its structure and contents
@@ -63,6 +64,10 @@ with col2:
 
 progress_bar = st.sidebar.progress(0)
 status_text = st.sidebar.empty()
+
+## connection node
+fig5 = analyze_connection_node(data)
+st.plotly_chart(fig5)
 
 
 last_rows = np.random.randn(1, 1)
