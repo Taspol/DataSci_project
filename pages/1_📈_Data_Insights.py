@@ -42,43 +42,38 @@ with col2:
     fig2 = analyze_open_access_trends(data)
     st.plotly_chart(fig2)
 
+
+# select box for funding agencies
+option = st.selectbox(
+    "Select Available Keywords:",
+    ("Chulalongkorn", "NSTDA", "Thailand Research Fund" , "Mahidol University", "Kasetsart University","Thailand","Chiang Mai University","Khon Kaen University","Prince of Songkla University","Suranaree University of Technology"),
+    index=None,
+    placeholder="Select keywords...",
+)
 col1, col2 = st.columns(2)
 
 ## funding agencies sorted by keyword
 with col1:
-    option = st.selectbox(
-        "Select Available Keywords:",
-        ("Chulalongkorn", "NSTDA", "Thailand Research Fund" , "Mahidol University", "Kasetsart University","Thailand","Chiang Mai University","Khon Kaen University","Prince of Songkla University","Suranaree University of Technology"),
-        index=None,
-        placeholder="Select keywords...",
-    )
     if not option:
         option = "Chulalongkorn"
     fig3 = analyze_funding_agencies(data, keyword=option, column_name='Funding Agencies', top_n=10)
     st.plotly_chart(fig3)
 
-## article per year
+## connection node
 with col2:
-    fig4 = article_per_year(data)
-    st.plotly_chart(fig4)
+    fig4 = analyze_connection_node(data)
+    chart2 = st.plotly_chart(fig4)
+
+## article per year
+fig5 = article_per_year(data)
+st.plotly_chart(fig5)
 
 progress_bar = st.sidebar.progress(0)
 status_text = st.sidebar.empty()
 
-## connection node
-fig5 = analyze_connection_node(data)
-st.plotly_chart(fig5)
-
-
-last_rows = np.random.randn(1, 1)
-chart = st.line_chart(last_rows)
 for i in range(1, 101):
-    new_rows = last_rows[-1, :] + np.random.randn(5, 1).cumsum(axis=0)
     status_text.text("%i%% Complete" % i)
-    chart.add_rows(new_rows)
     progress_bar.progress(i)
-    last_rows = new_rows
     time.sleep(0.05)
-
 progress_bar.empty()
 st.button("Re-run")

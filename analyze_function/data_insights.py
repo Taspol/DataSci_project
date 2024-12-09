@@ -156,7 +156,7 @@ def article_per_year(data):
     # Update the layout to improve the chart aesthetics
     fig.update_layout(
         title='Number of Articles Published per Year',  # Title of the plot
-        title_x=0.33,  # Center the title
+        title_x=0.40,  # Center the title
         xaxis_title='Year',  # X-axis title
         yaxis_title='Number of Articles',  # Y-axis title
         xaxis=dict(
@@ -171,9 +171,9 @@ def article_per_year(data):
             zeroline=True,  # Show a line at y=0
             zerolinecolor='black',  # Color of the y=0 line
         ),
-        plot_bgcolor='whitesmoke',  # Background color of the plot
+        plot_bgcolor='white',  # Background color of the plot
         paper_bgcolor='white',  # Background color of the paper area
-        margin=dict(l=120, r=50, t=180, b=50),  # Adjust the margins
+        margin=dict(l=50, r=50, t=180, b=50),  # Adjust the margins
         height=500,  # Set the height of the plot
     )
     # Add markers to the line for each year to make the data points more visible
@@ -286,7 +286,9 @@ def visualize_network(edge_trace, node_trace, output_file="funding_agencies_netw
             showlegend=False,
             hovermode='closest',
             xaxis=dict(showgrid=False, zeroline=False),
-            yaxis=dict(showgrid=False, zeroline=False)
+            yaxis=dict(showgrid=False, zeroline=False),
+            margin=dict(t=100, l=40, r=40, b=40),
+            height=450,
         )
     )
     return fig
