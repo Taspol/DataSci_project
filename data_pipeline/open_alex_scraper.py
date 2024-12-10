@@ -3,7 +3,6 @@ import requests
 import json
 import pandas as pd
 import pymongo
-from dotenv import load_dotenv
 import os
 
 

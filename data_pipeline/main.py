@@ -2,7 +2,6 @@ from open_alex_scraper import OpenAlexScraper
 from dotenv import load_dotenv
 import os
 import asyncio
-from db import upload_data_to_mongo, upload_json_csv_to_mongo
 
 
 async def main():
@@ -14,8 +13,9 @@ async def main():
     load_dotenv()
     MONGO_URL = os.getenv("MONGO_URL")
     openAlexScraper = OpenAlexScraper(mongo_uri=MONGO_URL)
+
     keywords = []
-    save_path = "data_pipeline/scrape_data/scraped_papers_random2.json"
+    save_path = "./data/scraped_papers_random2.json"
     target_count = 100
     # Scrape papers in a random manner
     filtered_papers = openAlexScraper.scrape_papers(
