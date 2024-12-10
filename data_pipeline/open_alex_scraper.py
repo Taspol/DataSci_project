@@ -82,7 +82,7 @@ class OpenAlexScraper:
         except Exception as e:
             print(f"Error saving data to MongoDB: {e}")
 
-    def scrape_papers(self, keyword_ids: List[str], per_page=50, 
+    def scrape_papers(self, keyword_ids: List[str], per_page=200, 
                       ignore_issns=False, target_count=None, save_path=None, 
                       save_to_file=None, save_to_mongo=True
                       ):
