@@ -1,2 +1,5 @@
 dataset/k-mean.csv
 dataset/autolabel_field.csv
+
+.env
+__pycache__/
