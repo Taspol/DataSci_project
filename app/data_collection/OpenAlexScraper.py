@@ -3,7 +3,7 @@ import requests
 import json
 import pandas as pd
 import os
-from libs.db import MongoDBHandler
+from db import MongoDBHandler
 
 
 class OpenAlexScraper:
