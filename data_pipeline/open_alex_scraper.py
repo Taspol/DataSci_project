@@ -53,7 +53,7 @@ class OpenAlexScraper:
         except Exception as e:
             return {"error": f"An error occurred: {e}"}
 
-    def clean_data(self, data: List[dict]) -> List[dict]:
+    def transform_data(self, data: List[dict]) -> List[dict]:
         df = pd.DataFrame(data)
         columns_to_keep = [
             'title', 'fwci', 'cited_by_count', 'type', 'type_crossref', 'topics',
@@ -76,8 +76,8 @@ class OpenAlexScraper:
 
     def save_to_mongo(self, data: List[dict]):
         try:
-            cleaned_data = self.clean_data(data)
-            self.openAlex_data_collection.insert_many(cleaned_data)
+            transformed_data = self.transform_data(data)
+            self.openAlex_data_collection.insert_many(transformed_data)
             print(f"Scraped data saved to MongoDB")
         except Exception as e:
             print(f"Error saving data to MongoDB: {e}")
