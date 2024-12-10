@@ -21,7 +21,7 @@ st.write(
     """### Visualizing category of data from OpenRex"
 """
 )
-db_Handler = MongoDBHandler()
+
 data5 =  pd.read_csv('dataset/title_field_count.csv')
 fig2 = analyze_webscrape(data5)
 st.plotly_chart(fig2)
