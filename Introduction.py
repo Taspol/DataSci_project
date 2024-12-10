@@ -39,11 +39,6 @@ The primary goals of this project are:
 - **Visualization**:
   - Interactive plots and dashboards for data exploration.
   - Model performance metrics and trend analysis.
-
-## How to Use the App
-    adding later
-
-
 ## About
 This project is designed for:
 - Data scientists and analysts looking to explore end-to-end workflows.
