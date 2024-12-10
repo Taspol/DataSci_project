@@ -56,6 +56,8 @@ def analyze_open_access_trends(data):
         None: Displays a pie chart of open-access vs closed access trends.
     """
     # Analyze open-access trends
+    mapping = {"gold": "True", "bronze": "True", "green": "True", "hybrid": "True", "diamond": "True" ,"True": "True"}
+    data['openaccessFlag'] = data["openaccessFlag"].replace(mapping)
     open_access_trends = data['openaccessFlag'].value_counts()
 
     # Plot open-access trends

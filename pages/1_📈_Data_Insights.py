@@ -12,11 +12,18 @@ from analyze_function.data_insights import article_per_year
 from analyze_function.data_insights import analyze_top_cited_journals
 from analyze_function.data_insights import analyze_open_access_trends
 from analyze_function.data_insights import analyze_connection_node
+from app.data_collection.db import MongoDBHandler
 
+
+db_Handler = MongoDBHandler()
+data1,data2 = db_Handler.get_all_data(limit=0)
 
 # Load the uploaded CSV file to inspect its structure and contents
-file_path = 'dataset/updated_with_year.csv'
-data = pd.read_csv(file_path)
+file_path = data2
+new_df = pd.DataFrame(data2)
+filtered_df = new_df[(new_df['year'] >= 2018) & (new_df['year'] <= 2023)]
+data = filtered_df
+# data = pd.read_csv(file_path)
 data.info()
 
 # Set page configuration
@@ -74,6 +81,6 @@ status_text = st.sidebar.empty()
 for i in range(1, 101):
     status_text.text("%i%% Complete" % i)
     progress_bar.progress(i)
-    time.sleep(0.05)
+    time.sleep(0.01)
 progress_bar.empty()
 st.button("Re-run")
