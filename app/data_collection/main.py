@@ -1,4 +1,4 @@
-from open_alex_scraper import OpenAlexScraper
+from data_collection.OpenAlexScraper import OpenAlexScraper
 import os
 import asyncio
 
