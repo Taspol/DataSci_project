@@ -4,8 +4,8 @@ import os
 import asyncio
 from db import upload_data_to_mongo, upload_json_csv_to_mongo
 
-async def main():
 
+async def main():
     """
     Main function to scrape papers from OpenAlex API
     Automate the process of scraping papers from OpenAlex API
@@ -19,8 +19,12 @@ async def main():
     target_count = 100
     # Scrape papers in a random manner
     filtered_papers = openAlexScraper.scrape_papers(
-        keyword_ids=keywords, ignore_issns=True, target_count=target_count, 
-        save_to_file=True, save_to_mongo=True, per_page=100, save_path=save_path
+        keyword_ids=keywords,
+        ignore_issns=True,
+        target_count=target_count,
+        save_to_file=True,
+        save_to_mongo=True,
+        save_path=save_path
     )
     print(f"Found {len(filtered_papers)} papers with new ISSNs")
 
@@ -28,5 +32,3 @@ async def main():
 
 if __name__ == "__main__":
     asyncio.run(main())
-
-

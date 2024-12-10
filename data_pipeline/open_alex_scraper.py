@@ -6,6 +6,7 @@ import pymongo
 from dotenv import load_dotenv
 import os
 
+
 class OpenAlexScraper:
     def __init__(self, mongo_uri: str, base_url="https://api.openalex.org/works"):
         self.base_url = base_url
@@ -15,11 +16,11 @@ class OpenAlexScraper:
         self.data = self.client['dsde']['data']
         self.scraped_issns = self.load_scraped_issns()
 
-
     def load_scraped_issns(self, file_path="issns.json"):
         try:
             # Fetch distinct ISSNs from MongoDB
-            issns = set(self.openAlex_data_collection.distinct('primary_location.source.issn'))
+            issns = set(self.openAlex_data_collection.distinct(
+                'primary_location.source.issn'))
             data_issns = set(self.data.distinct('prism:isbn'))
             issns.update(data_issns)
             # Optionally load from file if it exists
@@ -52,20 +53,20 @@ class OpenAlexScraper:
                 return {"error": f"Failed to retrieve data, status code: {response.status_code}"}
         except Exception as e:
             return {"error": f"An error occurred: {e}"}
-        
+
     def clean_data(self, data: List[dict]) -> List[dict]:
         df = pd.DataFrame(data)
         columns_to_keep = [
-            'title', 'fwci', 'cited_by_count', 'type', 'type_crossref', 'topics', 
-            'locations', 'locations_count', 'primary_topic', 'concepts', 
-            'relevance_score', 'publication_date', 'authorships', 
-            'publication_year', 'language', 'abstract_inverted_index', 
+            'title', 'fwci', 'cited_by_count', 'type', 'type_crossref', 'topics',
+            'locations', 'locations_count', 'primary_topic', 'concepts',
+            'relevance_score', 'publication_date', 'authorships',
+            'publication_year', 'language', 'abstract_inverted_index',
             'referenced_works', 'apc_list', 'apc_paid'
         ]
 
         df = df[columns_to_keep]
         return df.to_dict(orient="records")
-    
+
     def save_file(self, file_path: str, data):
         try:
             with open(file_path, "w") as f:
@@ -82,8 +83,8 @@ class OpenAlexScraper:
         except Exception as e:
             print(f"Error saving data to MongoDB: {e}")
 
-    def scrape_papers(self, keyword_ids: List[str], per_page=200, 
-                      ignore_issns=False, target_count=None, save_path=None, 
+    def scrape_papers(self, keyword_ids: List[str], per_page=200,
+                      ignore_issns=False, target_count=None, save_path=None,
                       save_to_file=None, save_to_mongo=True
                       ):
         all_filtered_papers = []
@@ -91,7 +92,8 @@ class OpenAlexScraper:
 
         # Build filter string
         keyword_filters = [f"keywords/{kw}" for kw in keyword_ids]
-        keyword_filter_string = "|".join(keyword_filters) if keyword_filters else ""
+        keyword_filter_string = "|".join(
+            keyword_filters) if keyword_filters else ""
         filter_string = "open_access.is_oa:true,language:en"
         if keyword_filter_string:
             filter_string += f",keywords.id:{keyword_filter_string}"
@@ -104,7 +106,8 @@ class OpenAlexScraper:
             )
 
             if "results" not in papers_data:
-                print(f"Error fetching papers: {papers_data.get('error', 'Unknown error')}")
+                print(
+                    f"Error fetching papers: {papers_data.get('error', 'Unknown error')}")
                 continue
 
             # Filter papers based on ISSNs if needed
@@ -114,7 +117,8 @@ class OpenAlexScraper:
             else:
                 for paper in papers_data["results"]:
                     try:
-                        issns = paper["primary_location"]["source"].get("issn", [])
+                        issns = paper["primary_location"]["source"].get(
+                            "issn", [])
                         if not any(issn in self.scraped_issns for issn in issns):
                             filtered_papers.append(paper)
                     except (KeyError, AttributeError, TypeError):
@@ -124,7 +128,8 @@ class OpenAlexScraper:
             total_collected += len(filtered_papers)
 
             if total_collected >= target_count:
-                print(f"Target of {target_count} papers reached. Stopping scrape.")
+                print(
+                    f"Target of {target_count} papers reached. Stopping scrape.")
                 break
 
             print(f"Collected {total_collected} papers so far.")

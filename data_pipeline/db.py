@@ -6,6 +6,7 @@ import json
 import pandas as pd
 from typing import List
 
+
 def get_mongo_url():
     """
     Load MongoDB URL from .env file
@@ -13,6 +14,7 @@ def get_mongo_url():
     load_dotenv()
     MONGO_URL = os.getenv("MONGO_URL")
     return MONGO_URL
+
 
 def get_all_data(limit: int = 100):
     """
@@ -23,8 +25,9 @@ def get_all_data(limit: int = 100):
     client = pymongo.MongoClient(MONGO_URL)
     openAlex_data = client['dsde']['openAlex_data'].find(limit=limit)
     data = client['dsde']['data'].find(limit=limit)
-    
+
     return list(openAlex_data), list(data)
+
 
 def upload_json_csv_to_mongo(file_path: str, collection_name: str):
     """
@@ -49,6 +52,7 @@ def upload_json_csv_to_mongo(file_path: str, collection_name: str):
     except Exception as e:
         print(f"Error uploading file to MongoDB: {e}")
 
+
 def upload_data_to_mongo(data: List[dict], collection_name: str):
     """
     Upload data to MongoDB
@@ -63,6 +67,7 @@ def upload_data_to_mongo(data: List[dict], collection_name: str):
         print(f"Successfully uploaded {len(data)} records to MongoDB")
     except Exception as e:
         print(f"Error uploading data to MongoDB: {e}")
-    
 
-__all__ = ["get_mongo_url", "get_all_data", "upload_json_csv_to_mongo", "upload_data_to_mongo"]
+
+__all__ = ["get_mongo_url", "get_all_data",
+           "upload_json_csv_to_mongo", "upload_data_to_mongo"]
