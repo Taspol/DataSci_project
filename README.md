@@ -5,6 +5,9 @@
 
 ## **Setup Instructions**  
 
+### **0. Create .env file with this structure**
+MONGO_URL=mongo_url
+
 ### **1. Install Dependencies:**  
 Run the following command to install all required dependencies:  
 ```bash
