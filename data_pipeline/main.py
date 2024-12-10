@@ -20,7 +20,6 @@ async def main():
     # Scrape papers in a random manner
     filtered_papers = openAlexScraper.scrape_papers(
         keyword_ids=keywords,
-        ignore_issns=True,
         target_count=target_count,
         save_to_file=True,
         save_to_mongo=True,
