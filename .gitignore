@@ -3,3 +3,4 @@ dataset/autolabel_field.csv
 
 .env
 __pycache__/
+.DS_Store
