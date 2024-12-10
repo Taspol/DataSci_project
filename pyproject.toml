@@ -15,6 +15,7 @@ networkx = "^3.4.2"
 ipykernel = "^6.29.5"
 pydeck = "^0.9.1"
 plotly = "^5.24.1"
+nbformat = "^5.10.4"
 
 
 [build-system]
