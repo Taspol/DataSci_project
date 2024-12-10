@@ -2,7 +2,8 @@ import os
 import json
 import pandas as pd
 from tqdm import tqdm
-
+from db import MongoDBHandler
+from glob import glob
 
 def ensure_list(variable):
     """Ensure the given variable is a list. If it's a dict, convert it to a list containing that dict.
@@ -143,17 +144,36 @@ def add_json_extension(file_path):
 def process_project_data(project_path="Project/"):
     """Main function to process JSON files in the specified directory."""
     data_dir = os.listdir(project_path)
-    data_dir
+    data_dir = [d for d in data_dir if not d.startswith(".")]
     for year in data_dir:
         folder_path = os.path.join(project_path, year)
         data = process_year(folder_path, year)
         save_to_csv(data, year)
 
+def merge_csv_files(path: str, output_file: str = "all_processed_data.csv"):
+    """Merge all CSV files in the specified directory into a single CSV file."""
+    print(f"Merging CSV files in '{path}*.csv' directory...")
+    all_files = glob(path + "*.csv")
+    print(f"Found {len(all_files)} CSV files in the directory.")
+    if not all_files:
+        print("No CSV files found in the directory.")
+        return
+    df = pd.concat((pd.read_csv(f) for f in all_files), ignore_index=True)
+    df.to_csv(output_file, index=False)
+    print(f"Successfully merged {len(all_files)} CSV files into '{output_file}'.")
+
 
 def main():
+    # WARN: Expecting the data to be in the 'Project/' directory
     PROJECT_PATH = "Project/"
     add_json_extension(PROJECT_PATH)
     process_project_data(PROJECT_PATH)
+
+    data_file = "all_processed_data.csv"
+    merge_csv_files(path="./", output_file=data_file)
+
+    mongodb = MongoDBHandler()
+    mongodb.upload_json_csv_to_mongo(file_path=data_file, collection_name="data")
 
 
 if __name__ == "__main__":
