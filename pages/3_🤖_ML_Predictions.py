@@ -9,7 +9,7 @@ st.set_page_config(page_title="ML_Processing", page_icon="🤖",layout='wide')
 st.markdown("# ML_Processing 🤖")
 st.sidebar.header("ML_Processing")
 st.write(
-    """### ML_Processing: Visualizing Data in Our Web Application
+    """### Visualizing Data in Our Web Application
 """
 )
 
@@ -18,7 +18,7 @@ fig1 = analyze_category(data)
 st.plotly_chart(fig1)
 
 st.write(
-    """### ML_Processing: Visualizing Data in Our Web Application
+    """### Visualizing category of data from OpenRex"
 """
 )
 db_Handler = MongoDBHandler()
