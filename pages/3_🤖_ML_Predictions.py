@@ -17,14 +17,20 @@ data = pd.read_csv('dataset/k-mean.csv')
 fig1 = analyze_category(data)
 st.plotly_chart(fig1)
 
-st.write(
-    """### Visualizing category of data from OpenRex
-"""
-)
+# File uploader for custom input
+uploaded_file = st.file_uploader("Upload your CSV file", type=["csv"])
 
-data5 =  pd.read_csv('dataset/title_field_count.csv')
-fig2 = analyze_webscrape(data5)
-st.plotly_chart(fig2)
+if uploaded_file is not None:
+    # Load the user-provided dataset
+    data5 = pd.read_csv(uploaded_file)
+    st.write("Preview of uploaded dataset:")
+    st.write(data5.head())  # Display a preview of the dataset
+    
+    # Call your function to visualize the data
+    fig2 = analyze_webscrape(data5)
+    st.plotly_chart(fig2)
+else:
+    st.write("Please upload a CSV file to visualize.")
 
 
 
