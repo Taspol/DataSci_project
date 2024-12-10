@@ -18,7 +18,7 @@ fig1 = analyze_category(data)
 st.plotly_chart(fig1)
 
 st.write(
-    """### Visualizing category of data from OpenRex"
+    """### Visualizing category of data from OpenRex
 """
 )
 
