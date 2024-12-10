@@ -1,5 +1,4 @@
 from open_alex_scraper import OpenAlexScraper
-from dotenv import load_dotenv
 import os
 import asyncio
 
@@ -10,9 +9,8 @@ async def main():
     Automate the process of scraping papers from OpenAlex API
     and save the results to a JSON file or MongoDB
     """
-    load_dotenv()
-    MONGO_URL = os.getenv("MONGO_URL")
-    openAlexScraper = OpenAlexScraper(mongo_uri=MONGO_URL)
+
+    openAlexScraper = OpenAlexScraper()
 
     keywords = []
     save_path = "./data/scraped_papers_random2.json"
