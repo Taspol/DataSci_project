@@ -3,7 +3,6 @@ name = "datasci-project"
 version = "0.1.0"
 description = "Chula DSDE project"
 authors = ["Your Name <you@example.com>"]
-packages = [{include = "datasci_project"}]
 readme = "README.md"
 
 [tool.poetry.dependencies]
